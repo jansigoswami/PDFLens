@@ -18,12 +18,59 @@ from langchain_cerebras import ChatCerebras
 from langchain.schema import Document as LangChainDocument
 
 # ---------------------- Streamlit UI ----------------------
-st.set_page_config(page_title="File-Based Chatbot", layout="wide")
-st.title("📘 Smart Document Chatbot (with Page Reference)")
-st.markdown("Ask questions based on the uploaded PDF, Word, or Excel file.")
+st.set_page_config(
+    page_title="PDFLens - Smart Document Analysis",
+    page_icon="🔍",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Custom CSS for better UI
+st.markdown("""
+<style>
+    .main-title {
+        font-size: 2.5rem;
+        color: #1E3A8A;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .subheader {
+        color: #4B5563;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .file-uploader > div > div {
+        border: 2px dashed #9CA3AF;
+        border-radius: 10px;
+        padding: 2rem;
+    }
+    .stButton>button {
+        background-color: #2563EB;
+        color: white;
+        border-radius: 8px;
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+    }
+    .stTextInput>div>div>input {
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# Main Title and Description
+st.markdown('<h1 class="main-title">🔍 PDFLens</h1>', unsafe_allow_html=True)
+st.markdown('<p class="subheader">Extract insights from your documents with AI-powered analysis</p>', unsafe_allow_html=True)
 
 # ---------------------- File Upload ----------------------
-uploaded_file = st.file_uploader("Upload your document (PDF, Word, or Text)", type=["pdf", "docx", "txt"])
+with st.container():
+    st.markdown("### 📄 Upload Your Document")
+    uploaded_file = st.file_uploader(
+        "Drag and drop or click to upload your document",
+        type=["pdf", "docx", "txt"],
+        label_visibility="collapsed"
+    )
+    st.caption("Supported formats: PDF, DOCX, TXT")
 
 # ---------------------- PDF Loader with Correct Page Numbers ----------------------
 def load_pdf_document(file_path):
@@ -348,29 +395,35 @@ if uploaded_file:
 
         # ---------------------- Chat Interface ----------------------
         st.divider()
-        query = st.text_input("💬 Ask a question about the uploaded file:")
+        with st.container():
+            st.markdown("### 💡 Ask a Question")
+            query = st.text_input(
+                "Type your question here...",
+                label_visibility="collapsed",
+                placeholder="What would you like to know about this document?"
+            )
 
-        if query:
-            with st.spinner("🔍 Searching for the answer..."):
-                answer, primary_page, all_pages = ask_question(query)
+            if query:
+                with st.spinner("🔍 Searching for the answer..."):
+                    answer, primary_page, all_pages = ask_question(query)
 
-            st.markdown("### 🧠 Answer")
-            st.write(answer)
-            
-            st.markdown("### 📄 Source Reference")
-            st.info(f"Primary Page: {primary_page}")
-            
-            if len(all_pages) > 1:
-                st.caption(f"Additional relevant pages: {', '.join(map(str, all_pages))}")
-            
-            with st.expander("🔍 View source context"):
-                docs = retriever.invoke(query)
-                for i, doc in enumerate(docs[:3]):
-                    page = doc.metadata.get("page", "Unknown")
-                    st.markdown(f"Chunk {i+1} (Page {page}):")
-                    st.text(doc.page_content[:400] + "..." if len(doc.page_content) > 400 else doc.page_content)
-                    if i < 2:
-                        st.divider()
+                st.markdown("### 🧠 Answer")
+                st.write(answer)
+                
+                st.markdown("### 📄 Source Reference")
+                st.info(f"Primary Page: {primary_page}")
+                
+                if len(all_pages) > 1:
+                    st.caption(f"Additional relevant pages: {', '.join(map(str, all_pages))}")
+                
+                with st.expander("🔍 View source context"):
+                    docs = retriever.invoke(query)
+                    for i, doc in enumerate(docs[:3]):
+                        page = doc.metadata.get("page", "Unknown")
+                        st.markdown(f"Chunk {i+1} (Page {page}):")
+                        st.text(doc.page_content[:400] + "..." if len(doc.page_content) > 400 else doc.page_content)
+                        if i < 2:
+                            st.divider()
 
     except Exception as e:
         st.error(f"❌ Error: {e}")
