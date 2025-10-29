@@ -2,6 +2,20 @@
 
 PDFLens is a powerful document analysis tool that allows you to upload PDF, Word, and Text files, then ask questions about their content with accurate page references.
 
+## 🎥 Demo
+
+[![PDFLens Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+
+*Click the image above to watch the demo video*
+
+## 🛠️ Built With
+
+- **Core**: Python, Streamlit
+- **AI & NLP**: LangChain, Cerebras AI, Hugging Face Transformers
+- **Document Processing**: PyPDF2, python-docx, Unstructured
+- **Vector Database**: FAISS
+- **Embeddings**: Sentence Transformers
+
 ## 🌟 Features
 
 - 📄 **Multi-format Support**: Upload PDF, DOCX, or TXT files with ease
