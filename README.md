@@ -1,13 +1,14 @@
-# 📘 Document Chatbot with Cerebras AI
+# 📘 PDFLens - Smart Document Analysis
 
-A chatbot that allows you to upload documents (PDF, Word, Excel) and ask questions about their content using Cerebras AI's powerful language models.
+PDFLens is a powerful document analysis tool that allows you to upload PDF, Word, and Text files, then ask questions about their content with accurate page references.
 
-## Features
+## 🌟 Features
 
-- 📄 **Multi-format Support**: Upload PDF, DOCX, or XLSX files
-- 🤖 **Powered by Cerebras AI**: Uses the Qwen-3-235B model for intelligent responses
-- 🔍 **Semantic Search**: Uses FAISS vector database for efficient document retrieval
-- 💬 **Interactive Chat**: Ask questions and get answers based on your document content
+- 📄 **Multi-format Support**: Upload PDF, DOCX, or TXT files with ease
+- 🔍 **Accurate Page References**: Get answers with precise page numbers (for PDFs) or sections (for other formats)
+- 🤖 **AI-Powered Insights**: Advanced language understanding for comprehensive answers
+- 📊 **Document Structure View**: Preview document layout and content organization
+- ⚡ **Fast Processing**: Quick document analysis and response generation
 - 🎯 **Source Citations**: See which pages the answers come from
 
 ## Prerequisites
