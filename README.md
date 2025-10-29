@@ -4,7 +4,7 @@ PDFLens is a powerful document analysis tool that allows you to upload PDF, Word
 
 ## 🎥 Demo
 
-[![PDFLens Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+[![PDFLens Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://youtu.be/xkolrdH6THE)
 
 *Click the image above to watch the demo video*
 
